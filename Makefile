@@ -10,10 +10,11 @@ clean:
 	docker rmi -f $(LOCAL_IMAGE)
 
 run:
-	docker run -p 8888:8888 -e JUPYTER_NOTEBOOK_PASSWORD=developer $(USER)/base-notebook
+	docker run -ti --rm -p 8888:8888 -e JUPYTER_NOTEBOOK_DISABLE_TOKEN=true $(USER)/base-notebook
 
 test:
-	docker run -d --name test-base-notebook -p 8888:8888 -e JUPYTER_NOTEBOOK_PASSWORD=developer $(USER)/base-notebook
+	-docker rm -f test-base-notebook || true
+	docker run -d --name test-base-notebook -p 8888:8888 -e JUPYTER_NOTEBOOK_DISABLE_TOKEN=true $(USER)/base-notebook
 	sleep $(WAIT_TIME)
 	./ready.sh && echo "Test completed successfully!"
-	docker rm -f test-base-notebook
+	-docker rm -f test-base-notebook || true

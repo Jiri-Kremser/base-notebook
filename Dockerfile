@@ -79,6 +79,7 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc /tini.asc
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 0527A9B7 && gpg --verify /tini.asc
 ADD start.sh /start.sh
+ADD ready.sh /ready.sh
 
 RUN chmod +x /tini /start.sh
 

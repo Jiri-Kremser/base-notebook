@@ -5,6 +5,10 @@ if [[ "x$JUPYTER_NOTEBOOK_PASSWORD" != "x" ]]; then
     echo "c.NotebookApp.password = u'$HASH'" >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 fi
 
+if [[ "$JUPYTER_NOTEBOOK_DISABLE_TOKEN" == "true" ]]; then
+    echo "c.NotebookApp.token = ''" >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
+fi
+
 if [[ -n "$JUPYTER_NOTEBOOK_X_INCLUDE" ]]; then
     curl -O $JUPYTER_NOTEBOOK_X_INCLUDE
 fi
